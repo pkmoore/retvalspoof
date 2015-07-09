@@ -75,10 +75,8 @@ int main(int argc, char** argv) {
                 else {
                     insyscall = false;
                     rax = ptrace(PTRACE_PEEKUSER, child, 8 * RAX, NULL);
-                    printf("Syscall %" PRId64 " tried to exit with retval %" PRId64 "\n", syscall, rax);
                     ptrace(PTRACE_GETREGS, child, NULL, &regs);
                     regs.rax = retval;
-                    printf("Set RAX to %" PRId64 "\n", regs.rax);
                     ptrace(PTRACE_SETREGS, child, NULL, &regs);
                 }
             }
